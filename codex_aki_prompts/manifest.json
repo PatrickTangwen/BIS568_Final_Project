@@ -1,0 +1,39 @@
+{
+  "files": [
+    "00_README_FIRST.md",
+    "01_task_scaffold.md",
+    "02_task_base_cohort_sql.md",
+    "03_task_kdigo_labels_sql.md",
+    "04_task_aki_onset_sql.md",
+    "05_task_prediction_anchors_sql.md",
+    "06_task_static_features_sql.md",
+    "07_task_labs_obs6h_sql.md",
+    "08_task_vitals_obs6h_sql.md",
+    "09_task_urine_obs6h_sql.md",
+    "10_task_comorbidities_sql.md",
+    "11_task_final_dataset_sql.md",
+    "12_task_sanity_checks_sql.md",
+    "13_task_data_fetch_aki_py.md",
+    "14_task_cleaning_notebook.md",
+    "15_task_models_notebook.md",
+    "16_task_refine_after_first_colab_run.md"
+  ],
+  "recommended_order": [
+    "01_task_scaffold.md",
+    "02_task_base_cohort_sql.md",
+    "03_task_kdigo_labels_sql.md",
+    "04_task_aki_onset_sql.md",
+    "05_task_prediction_anchors_sql.md",
+    "06_task_static_features_sql.md",
+    "07_task_labs_obs6h_sql.md",
+    "08_task_vitals_obs6h_sql.md",
+    "09_task_urine_obs6h_sql.md",
+    "10_task_comorbidities_sql.md",
+    "11_task_final_dataset_sql.md",
+    "12_task_sanity_checks_sql.md",
+    "13_task_data_fetch_aki_py.md",
+    "14_task_cleaning_notebook.md",
+    "15_task_models_notebook.md",
+    "16_task_refine_after_first_colab_run.md"
+  ]
+}

@@ -1,5 +1,3 @@
-下面这版可以直接保存成 `AKI_pipeline_plan.md`。它是按你当前 repo 的风格写的：保留 `data_fetch.py -> notebook/清洗 -> notebook/建模` 这条主线，但把任务从"pneumonia cohort + first_day 静态表 + mortality"切到"通用 ICU cohort + AKI 标签 + 早期预测"。你当前仓库的 `data_fetch.py` 现在是从 pneumonia ICD 映射表出发，连 `icustay_detail / admissions / patients`，再拼 `first_day_lab / first_day_vitalsign / first_day_bg / inflammation / first_day_urine_output / first_day_height / first_day_weight` 导出 `mimic_pneumonia_cohort_full.csv`；`ML_models.ipynb` 则以 `hospital_expire_flag` 为目标，并已做 `subject_id` 级切分、显式去掉 `los_hospital / los_icu` 这类泄漏变量。MIMIC-IV 官方当前可在 BigQuery 使用，且官方 `kdigo_stages.sql` 已给出 AKI 的标准派生逻辑。([GitHub][1])
-
 
 # AKI Early Prediction Pipeline Plan
 
