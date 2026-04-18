@@ -1,0 +1,1345 @@
+{
+  "metadata": {
+    "title": "MIMIC-IV Pneumonia Cohort Column Descriptions",
+    "sources": [
+      "https://www.nature.com/articles/s41597-022-01899-x",
+      "https://physionet.org/content/mimiciv/2.2/",
+      "https://mimic.mit.edu/docs/iv/modules/"
+    ],
+    "generated_date": "2025-11-26"
+  },
+  "columns": {
+    "Group_Name": {
+      "description": "Grouping name for the pneumonia cohort classification",
+      "source": "Custom cohort definition",
+      "category": "Cohort Definition"
+    },
+    "Term": {
+      "description": "Disease Ontology term name for the pneumonia type",
+      "source": "Disease Ontology (DOID)",
+      "category": "Cohort Definition"
+    },
+    "DOID": {
+      "description": "Disease Ontology ID - standardized identifier for diseases",
+      "source": "Disease Ontology",
+      "category": "Cohort Definition"
+    },
+    "ICD10Code": {
+      "description": "International Classification of Diseases, 10th Revision code for diagnosis",
+      "source": "ICD-10-CM/PCS",
+      "category": "Cohort Definition"
+    },
+    "subject_id": {
+      "description": "Unique identifier for each patient. Any rows associated with a single subject_id pertain to the same individual.",
+      "source": "MIMIC-IV patients table",
+      "category": "Patient Identifier",
+      "data_type": "INTEGER"
+    },
+    "hadm_id": {
+      "description": "Unique identifier for a single patient's admission to the hospital. Represents a single hospitalization encounter.",
+      "source": "MIMIC-IV admissions table",
+      "category": "Hospitalization Identifier",
+      "data_type": "INTEGER"
+    },
+    "stay_id": {
+      "description": "Unique identifier for an ICU stay. Generated identifier derived from transfers table, not based on raw data identifier.",
+      "source": "MIMIC-IV icustays table",
+      "category": "ICU Stay Identifier",
+      "data_type": "INTEGER"
+    },
+    "gender": {
+      "description": "Genotypical sex of the patient (M = Male, F = Female)",
+      "source": "MIMIC-IV patients table",
+      "category": "Demographics",
+      "data_type": "VARCHAR(1)"
+    },
+    "dod": {
+      "description": "De-identified date of death. Extracted from hospital records and Massachusetts State Registry of Vital Records. Censored at one year after last hospital discharge.",
+      "source": "MIMIC-IV patients table",
+      "category": "Mortality",
+      "data_type": "TIMESTAMP"
+    },
+    "admittime": {
+      "description": "Date and time the patient was admitted to the hospital",
+      "source": "MIMIC-IV admissions table",
+      "category": "Admission Times",
+      "data_type": "TIMESTAMP"
+    },
+    "dischtime": {
+      "description": "Date and time the patient was discharged from the hospital",
+      "source": "MIMIC-IV admissions table",
+      "category": "Admission Times",
+      "data_type": "TIMESTAMP"
+    },
+    "los_hospital": {
+      "description": "Length of stay in the hospital measured in days",
+      "source": "Derived from admissions table (dischtime - admittime)",
+      "category": "Hospital Stay",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "admission_age": {
+      "description": "Age of the patient at the time of hospital admission",
+      "source": "Derived from patients and admissions tables",
+      "category": "Demographics",
+      "data_type": "INTEGER"
+    },
+    "race": {
+      "description": "Self-reported race/ethnicity of the patient",
+      "source": "MIMIC-IV admissions table",
+      "category": "Demographics",
+      "data_type": "VARCHAR(80)"
+    },
+    "hospital_expire_flag": {
+      "description": "Binary flag indicating whether patient died during hospitalization (1 = died, 0 = survived to discharge)",
+      "source": "MIMIC-IV admissions table",
+      "category": "Mortality",
+      "data_type": "SMALLINT"
+    },
+    "hospstay_seq": {
+      "description": "Sequential number of the hospital stay for this patient (chronologically ordered)",
+      "source": "Derived from admissions table",
+      "category": "Hospital Stay",
+      "data_type": "INTEGER"
+    },
+    "first_hosp_stay": {
+      "description": "Boolean indicating if this is the patient's first hospital stay in the database",
+      "source": "Derived from admissions table",
+      "category": "Hospital Stay",
+      "data_type": "BOOLEAN"
+    },
+    "icu_intime": {
+      "description": "Date and time the patient was transferred into the ICU",
+      "source": "MIMIC-IV icustays table",
+      "category": "ICU Times",
+      "data_type": "TIMESTAMP"
+    },
+    "icu_outtime": {
+      "description": "Date and time the patient was transferred out of the ICU",
+      "source": "MIMIC-IV icustays table",
+      "category": "ICU Times",
+      "data_type": "TIMESTAMP"
+    },
+    "los_icu": {
+      "description": "Length of stay in the ICU measured in fractional days",
+      "source": "MIMIC-IV icustays table",
+      "category": "ICU Stay",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "icustay_seq": {
+      "description": "Sequential number of the ICU stay for this patient within a hospitalization",
+      "source": "Derived from icustays table",
+      "category": "ICU Stay",
+      "data_type": "INTEGER"
+    },
+    "first_icu_stay": {
+      "description": "Boolean indicating if this is the patient's first ICU stay in the hospitalization",
+      "source": "Derived from icustays table",
+      "category": "ICU Stay",
+      "data_type": "BOOLEAN"
+    },
+    "admittime_1": {
+      "description": "Duplicate of admittime - hospital admission date and time",
+      "source": "MIMIC-IV admissions table",
+      "category": "Admission Times",
+      "data_type": "TIMESTAMP"
+    },
+    "dischtime_1": {
+      "description": "Duplicate of dischtime - hospital discharge date and time",
+      "source": "MIMIC-IV admissions table",
+      "category": "Admission Times",
+      "data_type": "TIMESTAMP"
+    },
+    "deathtime": {
+      "description": "Time of in-hospital death. Only present if patient died in hospital, usually same as dischtime.",
+      "source": "MIMIC-IV admissions table",
+      "category": "Mortality",
+      "data_type": "TIMESTAMP"
+    },
+    "admission_type": {
+      "description": "Type of admission classifying urgency. Values include: AMBULATORY OBSERVATION, DIRECT EMER., DIRECT OBSERVATION, ELECTIVE, EU OBSERVATION, EW EMER., OBSERVATION ADMIT, SURGICAL SAME DAY ADMISSION, URGENT",
+      "source": "MIMIC-IV admissions table",
+      "category": "Admission Info",
+      "data_type": "VARCHAR(40)"
+    },
+    "admission_location": {
+      "description": "Location of patient prior to arriving at hospital (e.g., EMERGENCY ROOM, PHYSICIAN REFERRAL, TRANSFER FROM HOSPITAL)",
+      "source": "MIMIC-IV admissions table",
+      "category": "Admission Info",
+      "data_type": "VARCHAR(60)"
+    },
+    "insurance": {
+      "description": "Type of insurance the patient has for this hospitalization",
+      "source": "MIMIC-IV admissions table",
+      "category": "Demographics",
+      "data_type": "VARCHAR(255)"
+    },
+    "language": {
+      "description": "Primary language spoken by the patient",
+      "source": "MIMIC-IV admissions table",
+      "category": "Demographics",
+      "data_type": "VARCHAR(10)"
+    },
+    "marital_status": {
+      "description": "Marital status of the patient (e.g., MARRIED, SINGLE, DIVORCED, WIDOWED)",
+      "source": "MIMIC-IV admissions table",
+      "category": "Demographics",
+      "data_type": "VARCHAR(30)"
+    },
+    "race_1": {
+      "description": "Duplicate of race - self-reported ethnicity/race",
+      "source": "MIMIC-IV admissions table",
+      "category": "Demographics",
+      "data_type": "VARCHAR(80)"
+    },
+    "gender_1": {
+      "description": "Duplicate of gender - patient's genotypical sex",
+      "source": "MIMIC-IV patients table",
+      "category": "Demographics",
+      "data_type": "VARCHAR(1)"
+    },
+    "anchor_age": {
+      "description": "Patient's age in the anchor_year. If over 89, set to 91 for de-identification.",
+      "source": "MIMIC-IV patients table",
+      "category": "Demographics",
+      "data_type": "INTEGER"
+    },
+    "anchor_year": {
+      "description": "Shifted year for the patient (deidentified, between 2100-2200). Used with anchor_year_group to determine approximate real admission year.",
+      "source": "MIMIC-IV patients table",
+      "category": "Demographics",
+      "data_type": "INTEGER"
+    },
+    "dod_1": {
+      "description": "Duplicate of dod - de-identified date of death",
+      "source": "MIMIC-IV patients table",
+      "category": "Mortality",
+      "data_type": "TIMESTAMP"
+    },
+    "hematocrit_min": {
+      "description": "Minimum hematocrit value during ICU stay. Hematocrit is the percentage of red blood cells in blood.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "hematocrit_max": {
+      "description": "Maximum hematocrit value during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "hemoglobin_min": {
+      "description": "Minimum hemoglobin value during ICU stay. Hemoglobin is the oxygen-carrying protein in red blood cells.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count",
+      "unit": "g/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "hemoglobin_max": {
+      "description": "Maximum hemoglobin value during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count",
+      "unit": "g/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "platelets_min": {
+      "description": "Minimum platelet count during ICU stay. Platelets are blood cells that help with clotting.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "platelets_max": {
+      "description": "Maximum platelet count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "wbc_min": {
+      "description": "Minimum white blood cell count during ICU stay. WBCs are immune system cells.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "wbc_max": {
+      "description": "Maximum white blood cell count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "albumin_min": {
+      "description": "Minimum albumin level during ICU stay. Albumin is a protein made by the liver.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Protein",
+      "unit": "g/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "albumin_max": {
+      "description": "Maximum albumin level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Protein",
+      "unit": "g/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "globulin_min": {
+      "description": "Minimum globulin level during ICU stay. Globulins are a group of proteins in blood.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Protein",
+      "unit": "g/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "globulin_max": {
+      "description": "Maximum globulin level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Protein",
+      "unit": "g/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "total_protein_min": {
+      "description": "Minimum total protein level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Protein",
+      "unit": "g/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "total_protein_max": {
+      "description": "Maximum total protein level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Protein",
+      "unit": "g/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "aniongap_min": {
+      "description": "Minimum anion gap during ICU stay. Anion gap measures metabolic acidosis.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Electrolytes",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "aniongap_max": {
+      "description": "Maximum anion gap during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Electrolytes",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bicarbonate_min": {
+      "description": "Minimum bicarbonate level during ICU stay. Important for acid-base balance.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Electrolytes",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bicarbonate_max": {
+      "description": "Maximum bicarbonate level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Electrolytes",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bun_min": {
+      "description": "Minimum blood urea nitrogen during ICU stay. Measures kidney function.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Renal",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bun_max": {
+      "description": "Maximum blood urea nitrogen during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Renal",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "calcium_min": {
+      "description": "Minimum calcium level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Electrolytes",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "calcium_max": {
+      "description": "Maximum calcium level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Electrolytes",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "chloride_min": {
+      "description": "Minimum chloride level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Electrolytes",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "chloride_max": {
+      "description": "Maximum chloride level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Electrolytes",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "creatinine_min": {
+      "description": "Minimum creatinine level during ICU stay. Measures kidney function.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Renal",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "creatinine_max": {
+      "description": "Maximum creatinine level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Renal",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "glucose_min": {
+      "description": "Minimum blood glucose level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Metabolic",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "glucose_max": {
+      "description": "Maximum blood glucose level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Metabolic",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "sodium_min": {
+      "description": "Minimum sodium level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Electrolytes",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "sodium_max": {
+      "description": "Maximum sodium level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Electrolytes",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "potassium_min": {
+      "description": "Minimum potassium level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Electrolytes",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "potassium_max": {
+      "description": "Maximum potassium level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Electrolytes",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "abs_basophils_min": {
+      "description": "Minimum absolute basophil count during ICU stay. Basophils are a type of white blood cell.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "abs_basophils_max": {
+      "description": "Maximum absolute basophil count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "abs_eosinophils_min": {
+      "description": "Minimum absolute eosinophil count during ICU stay. Eosinophils are involved in allergic responses.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "abs_eosinophils_max": {
+      "description": "Maximum absolute eosinophil count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "abs_lymphocytes_min": {
+      "description": "Minimum absolute lymphocyte count during ICU stay. Lymphocytes are key immune cells.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "abs_lymphocytes_max": {
+      "description": "Maximum absolute lymphocyte count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "abs_monocytes_min": {
+      "description": "Minimum absolute monocyte count during ICU stay. Monocytes are involved in immune response.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "abs_monocytes_max": {
+      "description": "Maximum absolute monocyte count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "abs_neutrophils_min": {
+      "description": "Minimum absolute neutrophil count during ICU stay. Neutrophils are primary infection fighters.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "abs_neutrophils_max": {
+      "description": "Maximum absolute neutrophil count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "K/uL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "atyps_min": {
+      "description": "Minimum atypical lymphocyte count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "atyps_max": {
+      "description": "Maximum atypical lymphocyte count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bands_min": {
+      "description": "Minimum band neutrophil count during ICU stay. Bands are immature neutrophils.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bands_max": {
+      "description": "Maximum band neutrophil count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "imm_granulocytes_min": {
+      "description": "Minimum immature granulocyte count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "imm_granulocytes_max": {
+      "description": "Maximum immature granulocyte count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "metas_min": {
+      "description": "Minimum metamyelocyte count during ICU stay. Metamyelocytes are immature granulocytes.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "metas_max": {
+      "description": "Maximum metamyelocyte count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "nrbc_min": {
+      "description": "Minimum nucleated red blood cell count during ICU stay. Normally only found in bone marrow.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "/100 WBC",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "nrbc_max": {
+      "description": "Maximum nucleated red blood cell count during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Complete Blood Count - Differential",
+      "unit": "/100 WBC",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "d_dimer_min": {
+      "description": "Minimum D-dimer level during ICU stay. Marker of blood clot breakdown.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Coagulation",
+      "unit": "ng/mL FEU",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "d_dimer_max": {
+      "description": "Maximum D-dimer level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Coagulation",
+      "unit": "ng/mL FEU",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "fibrinogen_min": {
+      "description": "Minimum fibrinogen level during ICU stay. Protein essential for blood clotting.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Coagulation",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "fibrinogen_max": {
+      "description": "Maximum fibrinogen level during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Coagulation",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "thrombin_min": {
+      "description": "Minimum thrombin time during ICU stay. Measures final stage of blood clotting.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Coagulation",
+      "unit": "seconds",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "thrombin_max": {
+      "description": "Maximum thrombin time during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Coagulation",
+      "unit": "seconds",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "inr_min": {
+      "description": "Minimum International Normalized Ratio during ICU stay. Standardized measure of blood clotting.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Coagulation",
+      "unit": "ratio",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "inr_max": {
+      "description": "Maximum INR during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Coagulation",
+      "unit": "ratio",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "pt_min": {
+      "description": "Minimum prothrombin time during ICU stay. Measures time for blood to clot.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Coagulation",
+      "unit": "seconds",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "pt_max": {
+      "description": "Maximum prothrombin time during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Coagulation",
+      "unit": "seconds",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ptt_min": {
+      "description": "Minimum partial thromboplastin time during ICU stay. Measures intrinsic clotting pathway.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Coagulation",
+      "unit": "seconds",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ptt_max": {
+      "description": "Maximum partial thromboplastin time during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Coagulation",
+      "unit": "seconds",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "alt_min": {
+      "description": "Minimum alanine aminotransferase during ICU stay. Liver enzyme.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "alt_max": {
+      "description": "Maximum ALT during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "alp_min": {
+      "description": "Minimum alkaline phosphatase during ICU stay. Enzyme from liver and bone.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "alp_max": {
+      "description": "Maximum alkaline phosphatase during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ast_min": {
+      "description": "Minimum aspartate aminotransferase during ICU stay. Liver and muscle enzyme.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ast_max": {
+      "description": "Maximum AST during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "amylase_min": {
+      "description": "Minimum amylase during ICU stay. Pancreatic enzyme.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Pancreatic Function",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "amylase_max": {
+      "description": "Maximum amylase during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Pancreatic Function",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bilirubin_total_min": {
+      "description": "Minimum total bilirubin during ICU stay. Breakdown product of red blood cells.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bilirubin_total_max": {
+      "description": "Maximum total bilirubin during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bilirubin_direct_min": {
+      "description": "Minimum direct (conjugated) bilirubin during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bilirubin_direct_max": {
+      "description": "Maximum direct bilirubin during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bilirubin_indirect_min": {
+      "description": "Minimum indirect (unconjugated) bilirubin during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bilirubin_indirect_max": {
+      "description": "Maximum indirect bilirubin during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ck_cpk_min": {
+      "description": "Minimum creatine kinase during ICU stay. Enzyme from muscle tissue.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Cardiac Markers",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ck_cpk_max": {
+      "description": "Maximum creatine kinase during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Cardiac Markers",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ck_mb_min": {
+      "description": "Minimum CK-MB during ICU stay. Cardiac-specific creatine kinase isoenzyme.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Cardiac Markers",
+      "unit": "ng/mL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ck_mb_max": {
+      "description": "Maximum CK-MB during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Cardiac Markers",
+      "unit": "ng/mL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ggt_min": {
+      "description": "Minimum gamma-glutamyl transferase during ICU stay. Liver enzyme.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ggt_max": {
+      "description": "Maximum GGT during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Liver Function",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ld_ldh_min": {
+      "description": "Minimum lactate dehydrogenase during ICU stay. Enzyme present in many tissues.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Enzymes",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ld_ldh_max": {
+      "description": "Maximum LDH during ICU stay",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Chemistry - Enzymes",
+      "unit": "IU/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "heart_rate_min": {
+      "description": "Minimum heart rate during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "beats/min",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "heart_rate_max": {
+      "description": "Maximum heart rate during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "beats/min",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "heart_rate_mean": {
+      "description": "Mean heart rate during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "beats/min",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "sbp_min": {
+      "description": "Minimum systolic blood pressure during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "sbp_max": {
+      "description": "Maximum systolic blood pressure during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "sbp_mean": {
+      "description": "Mean systolic blood pressure during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "dbp_min": {
+      "description": "Minimum diastolic blood pressure during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "dbp_max": {
+      "description": "Maximum diastolic blood pressure during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "dbp_mean": {
+      "description": "Mean diastolic blood pressure during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "mbp_min": {
+      "description": "Minimum mean arterial blood pressure during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "mbp_max": {
+      "description": "Maximum mean arterial blood pressure during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "mbp_mean": {
+      "description": "Mean of mean arterial blood pressure during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "resp_rate_min": {
+      "description": "Minimum respiratory rate during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "breaths/min",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "resp_rate_max": {
+      "description": "Maximum respiratory rate during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "breaths/min",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "resp_rate_mean": {
+      "description": "Mean respiratory rate during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "breaths/min",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "temperature_min": {
+      "description": "Minimum body temperature during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "°C",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "temperature_max": {
+      "description": "Maximum body temperature during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "°C",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "temperature_mean": {
+      "description": "Mean body temperature during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "°C",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "spo2_min": {
+      "description": "Minimum peripheral oxygen saturation during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "spo2_max": {
+      "description": "Maximum peripheral oxygen saturation during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "spo2_mean": {
+      "description": "Mean peripheral oxygen saturation during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "glucose_min_1": {
+      "description": "Minimum glucose from vital signs charting during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "glucose_max_1": {
+      "description": "Maximum glucose from vital signs charting during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "glucose_mean": {
+      "description": "Mean glucose from vital signs charting during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Vital Signs",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "lactate_min": {
+      "description": "Minimum lactate level during ICU stay. Marker of tissue hypoxia.",
+      "source": "MIMIC-IV labevents/blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mmol/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "lactate_max": {
+      "description": "Maximum lactate level during ICU stay",
+      "source": "MIMIC-IV labevents/blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mmol/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ph_min": {
+      "description": "Minimum blood pH during ICU stay. Measures acid-base status.",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "pH units",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "ph_max": {
+      "description": "Maximum blood pH during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "pH units",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "so2_min": {
+      "description": "Minimum oxygen saturation from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "so2_max": {
+      "description": "Maximum oxygen saturation from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "po2_min": {
+      "description": "Minimum partial pressure of oxygen during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "po2_max": {
+      "description": "Maximum partial pressure of oxygen during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "pco2_min": {
+      "description": "Minimum partial pressure of carbon dioxide during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "pco2_max": {
+      "description": "Maximum partial pressure of carbon dioxide during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "aado2_min": {
+      "description": "Minimum alveolar-arterial oxygen difference during ICU stay. Measures gas exchange efficiency.",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "aado2_max": {
+      "description": "Maximum A-a oxygen gradient during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "aado2_calc_min": {
+      "description": "Minimum calculated alveolar-arterial oxygen difference",
+      "source": "MIMIC-IV blood gas (derived/calculated)",
+      "category": "Blood Gas",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "aado2_calc_max": {
+      "description": "Maximum calculated A-a oxygen gradient",
+      "source": "MIMIC-IV blood gas (derived/calculated)",
+      "category": "Blood Gas",
+      "unit": "mmHg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "pao2fio2ratio_min": {
+      "description": "Minimum PaO2/FiO2 ratio during ICU stay. Key measure of oxygenation, used in ARDS criteria.",
+      "source": "MIMIC-IV blood gas (derived/calculated)",
+      "category": "Blood Gas",
+      "unit": "ratio",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "pao2fio2ratio_max": {
+      "description": "Maximum PaO2/FiO2 ratio during ICU stay",
+      "source": "MIMIC-IV blood gas (derived/calculated)",
+      "category": "Blood Gas",
+      "unit": "ratio",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "baseexcess_min": {
+      "description": "Minimum base excess during ICU stay. Measures metabolic component of acid-base status.",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "baseexcess_max": {
+      "description": "Maximum base excess during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bicarbonate_min_1": {
+      "description": "Minimum bicarbonate from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "bicarbonate_max_1": {
+      "description": "Maximum bicarbonate from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "totalco2_min": {
+      "description": "Minimum total CO2 content during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "totalco2_max": {
+      "description": "Maximum total CO2 content during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "hematocrit_min_1": {
+      "description": "Minimum hematocrit from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "hematocrit_max_1": {
+      "description": "Maximum hematocrit from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "hemoglobin_min_1": {
+      "description": "Minimum hemoglobin from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "g/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "hemoglobin_max_1": {
+      "description": "Maximum hemoglobin from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "g/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "carboxyhemoglobin_min": {
+      "description": "Minimum carboxyhemoglobin during ICU stay. Measures carbon monoxide binding to hemoglobin.",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "carboxyhemoglobin_max": {
+      "description": "Maximum carboxyhemoglobin during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "methemoglobin_min": {
+      "description": "Minimum methemoglobin during ICU stay. Hemoglobin with oxidized iron.",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "methemoglobin_max": {
+      "description": "Maximum methemoglobin during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "%",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "temperature_min_1": {
+      "description": "Minimum temperature from blood gas analyzer during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "°C",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "temperature_max_1": {
+      "description": "Maximum temperature from blood gas analyzer during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "°C",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "chloride_min_1": {
+      "description": "Minimum chloride from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "chloride_max_1": {
+      "description": "Maximum chloride from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "calcium_min_1": {
+      "description": "Minimum ionized calcium from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "calcium_max_1": {
+      "description": "Maximum ionized calcium from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "glucose_min_2": {
+      "description": "Minimum glucose from blood gas analyzer during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "glucose_max_2": {
+      "description": "Maximum glucose from blood gas analyzer during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mg/dL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "potassium_min_1": {
+      "description": "Minimum potassium from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "potassium_max_1": {
+      "description": "Maximum potassium from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "sodium_min_1": {
+      "description": "Minimum sodium from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "sodium_max_1": {
+      "description": "Maximum sodium from blood gas during ICU stay",
+      "source": "MIMIC-IV blood gas (derived)",
+      "category": "Blood Gas",
+      "unit": "mEq/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "charttime": {
+      "description": "Time at which the observation or measurement was charted/recorded",
+      "source": "MIMIC-IV chartevents",
+      "category": "Timestamps",
+      "data_type": "TIMESTAMP"
+    },
+    "specimen_id": {
+      "description": "Unique identifier for a specimen. Multiple measurements from same specimen share specimen_id.",
+      "source": "MIMIC-IV labevents",
+      "category": "Lab Identifier",
+      "data_type": "INTEGER"
+    },
+    "crp": {
+      "description": "C-reactive protein level. Acute phase reactant and marker of inflammation/infection.",
+      "source": "MIMIC-IV labevents (derived)",
+      "category": "Inflammation Markers",
+      "unit": "mg/L",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "urineoutput": {
+      "description": "Total urine output during ICU stay. Key measure of kidney function and fluid balance.",
+      "source": "MIMIC-IV outputevents (derived)",
+      "category": "Outputs",
+      "unit": "mL",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "height": {
+      "description": "Patient's height",
+      "source": "MIMIC-IV chartevents/omr (derived)",
+      "category": "Anthropometrics",
+      "unit": "cm",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "weight_admit": {
+      "description": "Patient's weight at time of admission",
+      "source": "MIMIC-IV chartevents/omr (derived)",
+      "category": "Anthropometrics",
+      "unit": "kg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "weight": {
+      "description": "Patient's weight during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Anthropometrics",
+      "unit": "kg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "weight_min": {
+      "description": "Minimum recorded weight during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Anthropometrics",
+      "unit": "kg",
+      "data_type": "DOUBLE PRECISION"
+    },
+    "weight_max": {
+      "description": "Maximum recorded weight during ICU stay",
+      "source": "MIMIC-IV chartevents (derived)",
+      "category": "Anthropometrics",
+      "unit": "kg",
+      "data_type": "DOUBLE PRECISION"
+    }
+  }
+}
+

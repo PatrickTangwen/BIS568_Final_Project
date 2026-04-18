@@ -1,0 +1,19 @@
+Group,Term,DOID,ICD10Code
+Pneumonia,bacterial pneumonia,http://purl.obolibrary.org/obo/DOID_874,J15.9
+Pneumonia,eosinophilic pneumonia,http://purl.obolibrary.org/obo/DOID_5870,J82.81
+Pneumonia,aspiration pneumonitis,http://purl.obolibrary.org/obo/DOID_3240,J69.0
+Pneumonia,idiopathic interstitial pneumonia,http://purl.obolibrary.org/obo/DOID_2797,J84.114
+Pneumonia,bronchopneumonia,http://purl.obolibrary.org/obo/DOID_12375,J18.0
+Pneumonia,viral pneumonia,http://purl.obolibrary.org/obo/DOID_10533,J12.9
+Pneumonia,Mycoplasma pneumoniae pneumonia,http://purl.obolibrary.org/obo/DOID_13276,J15.7
+Pneumonia,Klebsiella pneumonia,http://purl.obolibrary.org/obo/DOID_13272,J15.0
+Pneumonia,aspiration pneumonia,http://purl.obolibrary.org/obo/DOID_0050152,J69.0
+Pneumonia,Streptococcus pneumonia,http://purl.obolibrary.org/obo/DOID_0040084,J13
+Pneumonia,Chlamydia pneumonia,http://purl.obolibrary.org/obo/DOID_0040083,J16.0
+Pneumonia,Loeffler syndrome,http://purl.obolibrary.org/obo/DOID_9503,J82.89
+Pneumonia,chronic eosinophilic pneumonia,http://purl.obolibrary.org/obo/DOID_9502,J82.81
+Pneumonia,lipid pneumonia,http://purl.obolibrary.org/obo/DOID_3241,J69.1
+Pneumonia,acute interstitial pneumonia,http://purl.obolibrary.org/obo/DOID_2800,J84.114
+Pneumonia,desquamative interstitial pneumonia,http://purl.obolibrary.org/obo/DOID_0050158,J84.117
+Pneumonia,cryptogenic organizing pneumonia,http://purl.obolibrary.org/obo/DOID_0050157,J84.116
+

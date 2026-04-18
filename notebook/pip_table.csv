@@ -1,0 +1,14 @@
+index,feature,PIP
+2,first_hosp_stay,1.0
+119,urineoutput,1.0
+70,heart_rate_max,0.9958333333333333
+112,temperature_max_1,0.8675833333333334
+111,temperature_min_1,0.866875
+86,temperature_mean,0.7254166666666667
+62,bilirubin_total_max,0.691125
+16,albumin_max,0.6767083333333334
+65,ck_mb_min,0.67025
+135,admission_location_INTERNAL TRANSFER TO OR FROM PSYCH,0.5925
+5,anchor_age,0.5494166666666667
+3,icustay_seq,0.5187916666666667
+63,ck_cpk_min,0.504625

@@ -1,0 +1,194 @@
+column_name,description,source,category,unit,data_type
+subject_id,Unique identifier for each patient. Any rows associated with a single subject_id pertain to the same individual.,MIMIC-IV patients table,Patient Identifier,,INTEGER
+hadm_id,Unique identifier for a single patient's admission to the hospital. Represents a single hospitalization encounter.,MIMIC-IV admissions table,Hospitalization Identifier,,INTEGER
+stay_id,Unique identifier for an ICU stay. Generated identifier derived from transfers table.,MIMIC-IV icustays table,ICU Stay Identifier,,INTEGER
+gender,Genotypical sex of the patient (M = Male; F = Female),MIMIC-IV patients table,Demographics,,VARCHAR(1)
+dod,De-identified date of death. Extracted from hospital records and Massachusetts State Registry of Vital Records. Censored at one year after last hospital discharge.,MIMIC-IV patients table,Mortality,,TIMESTAMP
+admittime,Date and time the patient was admitted to the hospital,MIMIC-IV admissions table,Admission Times,,TIMESTAMP
+dischtime,Date and time the patient was discharged from the hospital,MIMIC-IV admissions table,Admission Times,,TIMESTAMP
+los_hospital,Length of stay in the hospital measured in days,Derived from admissions table,Hospital Stay,,DOUBLE PRECISION
+admission_age,Age of the patient at the time of hospital admission,Derived from patients and admissions tables,Demographics,,INTEGER
+race,Self-reported race/ethnicity of the patient,MIMIC-IV admissions table,Demographics,,VARCHAR(80)
+hospital_expire_flag,Binary flag indicating whether patient died during hospitalization (1 = died; 0 = survived to discharge),MIMIC-IV admissions table,Mortality,,SMALLINT
+hospstay_seq,Sequential number of the hospital stay for this patient (chronologically ordered),Derived from admissions table,Hospital Stay,,INTEGER
+first_hosp_stay,Boolean indicating if this is the patient's first hospital stay in the database,Derived from admissions table,Hospital Stay,,BOOLEAN
+icu_intime,Date and time the patient was transferred into the ICU,MIMIC-IV icustays table,ICU Times,,TIMESTAMP
+icu_outtime,Date and time the patient was transferred out of the ICU,MIMIC-IV icustays table,ICU Times,,TIMESTAMP
+los_icu,Length of stay in the ICU measured in fractional days,MIMIC-IV icustays table,ICU Stay,,DOUBLE PRECISION
+icustay_seq,Sequential number of the ICU stay for this patient within a hospitalization,Derived from icustays table,ICU Stay,,INTEGER
+first_icu_stay,Boolean indicating if this is the patient's first ICU stay in the hospitalization,Derived from icustays table,ICU Stay,,BOOLEAN
+admittime_1,Duplicate of admittime - hospital admission date and time,MIMIC-IV admissions table,Admission Times,,TIMESTAMP
+dischtime_1,Duplicate of dischtime - hospital discharge date and time,MIMIC-IV admissions table,Admission Times,,TIMESTAMP
+deathtime,Time of in-hospital death. Only present if patient died in hospital.,MIMIC-IV admissions table,Mortality,,TIMESTAMP
+admission_type,Type of admission classifying urgency (AMBULATORY OBSERVATION; DIRECT EMER.; ELECTIVE; URGENT; etc.),MIMIC-IV admissions table,Admission Info,,VARCHAR(40)
+admission_location,Location of patient prior to arriving at hospital (e.g. EMERGENCY ROOM; PHYSICIAN REFERRAL),MIMIC-IV admissions table,Admission Info,,VARCHAR(60)
+insurance,Type of insurance the patient has for this hospitalization,MIMIC-IV admissions table,Demographics,,VARCHAR(255)
+language,Primary language spoken by the patient,MIMIC-IV admissions table,Demographics,,VARCHAR(10)
+marital_status,Marital status of the patient (e.g. MARRIED; SINGLE; DIVORCED; WIDOWED),MIMIC-IV admissions table,Demographics,,VARCHAR(30)
+race_1,Duplicate of race - self-reported ethnicity/race,MIMIC-IV admissions table,Demographics,,VARCHAR(80)
+gender_1,Duplicate of gender - patient's genotypical sex,MIMIC-IV patients table,Demographics,,VARCHAR(1)
+anchor_age,Patient's age in the anchor_year. If over 89 set to 91 for de-identification.,MIMIC-IV patients table,Demographics,,INTEGER
+anchor_year,Shifted year for the patient (deidentified between 2100-2200),MIMIC-IV patients table,Demographics,,INTEGER
+dod_1,Duplicate of dod - de-identified date of death,MIMIC-IV patients table,Mortality,,TIMESTAMP
+hematocrit_min,Minimum hematocrit value during ICU stay. Percentage of red blood cells in blood.,MIMIC-IV labevents (derived),Complete Blood Count,%,DOUBLE PRECISION
+hematocrit_max,Maximum hematocrit value during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count,%,DOUBLE PRECISION
+hemoglobin_min,Minimum hemoglobin value during ICU stay. Oxygen-carrying protein in red blood cells.,MIMIC-IV labevents (derived),Complete Blood Count,g/dL,DOUBLE PRECISION
+hemoglobin_max,Maximum hemoglobin value during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count,g/dL,DOUBLE PRECISION
+platelets_min,Minimum platelet count during ICU stay. Blood cells that help with clotting.,MIMIC-IV labevents (derived),Complete Blood Count,K/uL,DOUBLE PRECISION
+platelets_max,Maximum platelet count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count,K/uL,DOUBLE PRECISION
+wbc_min,Minimum white blood cell count during ICU stay. Immune system cells.,MIMIC-IV labevents (derived),Complete Blood Count,K/uL,DOUBLE PRECISION
+wbc_max,Maximum white blood cell count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count,K/uL,DOUBLE PRECISION
+albumin_min,Minimum albumin level during ICU stay. Protein made by the liver.,MIMIC-IV labevents (derived),Chemistry - Protein,g/dL,DOUBLE PRECISION
+albumin_max,Maximum albumin level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Protein,g/dL,DOUBLE PRECISION
+globulin_min,Minimum globulin level during ICU stay. Group of proteins in blood.,MIMIC-IV labevents (derived),Chemistry - Protein,g/dL,DOUBLE PRECISION
+globulin_max,Maximum globulin level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Protein,g/dL,DOUBLE PRECISION
+total_protein_min,Minimum total protein level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Protein,g/dL,DOUBLE PRECISION
+total_protein_max,Maximum total protein level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Protein,g/dL,DOUBLE PRECISION
+aniongap_min,Minimum anion gap during ICU stay. Measures metabolic acidosis.,MIMIC-IV labevents (derived),Chemistry - Electrolytes,mEq/L,DOUBLE PRECISION
+aniongap_max,Maximum anion gap during ICU stay,MIMIC-IV labevents (derived),Chemistry - Electrolytes,mEq/L,DOUBLE PRECISION
+bicarbonate_min,Minimum bicarbonate level during ICU stay. Important for acid-base balance.,MIMIC-IV labevents (derived),Chemistry - Electrolytes,mEq/L,DOUBLE PRECISION
+bicarbonate_max,Maximum bicarbonate level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Electrolytes,mEq/L,DOUBLE PRECISION
+bun_min,Minimum blood urea nitrogen during ICU stay. Measures kidney function.,MIMIC-IV labevents (derived),Chemistry - Renal,mg/dL,DOUBLE PRECISION
+bun_max,Maximum blood urea nitrogen during ICU stay,MIMIC-IV labevents (derived),Chemistry - Renal,mg/dL,DOUBLE PRECISION
+calcium_min,Minimum calcium level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Electrolytes,mg/dL,DOUBLE PRECISION
+calcium_max,Maximum calcium level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Electrolytes,mg/dL,DOUBLE PRECISION
+chloride_min,Minimum chloride level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Electrolytes,mEq/L,DOUBLE PRECISION
+chloride_max,Maximum chloride level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Electrolytes,mEq/L,DOUBLE PRECISION
+creatinine_min,Minimum creatinine level during ICU stay. Measures kidney function.,MIMIC-IV labevents (derived),Chemistry - Renal,mg/dL,DOUBLE PRECISION
+creatinine_max,Maximum creatinine level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Renal,mg/dL,DOUBLE PRECISION
+glucose_min,Minimum blood glucose level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Metabolic,mg/dL,DOUBLE PRECISION
+glucose_max,Maximum blood glucose level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Metabolic,mg/dL,DOUBLE PRECISION
+sodium_min,Minimum sodium level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Electrolytes,mEq/L,DOUBLE PRECISION
+sodium_max,Maximum sodium level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Electrolytes,mEq/L,DOUBLE PRECISION
+potassium_min,Minimum potassium level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Electrolytes,mEq/L,DOUBLE PRECISION
+potassium_max,Maximum potassium level during ICU stay,MIMIC-IV labevents (derived),Chemistry - Electrolytes,mEq/L,DOUBLE PRECISION
+abs_basophils_min,Minimum absolute basophil count during ICU stay. Type of white blood cell.,MIMIC-IV labevents (derived),Complete Blood Count - Differential,K/uL,DOUBLE PRECISION
+abs_basophils_max,Maximum absolute basophil count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,K/uL,DOUBLE PRECISION
+abs_eosinophils_min,Minimum absolute eosinophil count during ICU stay. Involved in allergic responses.,MIMIC-IV labevents (derived),Complete Blood Count - Differential,K/uL,DOUBLE PRECISION
+abs_eosinophils_max,Maximum absolute eosinophil count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,K/uL,DOUBLE PRECISION
+abs_lymphocytes_min,Minimum absolute lymphocyte count during ICU stay. Key immune cells.,MIMIC-IV labevents (derived),Complete Blood Count - Differential,K/uL,DOUBLE PRECISION
+abs_lymphocytes_max,Maximum absolute lymphocyte count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,K/uL,DOUBLE PRECISION
+abs_monocytes_min,Minimum absolute monocyte count during ICU stay. Involved in immune response.,MIMIC-IV labevents (derived),Complete Blood Count - Differential,K/uL,DOUBLE PRECISION
+abs_monocytes_max,Maximum absolute monocyte count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,K/uL,DOUBLE PRECISION
+abs_neutrophils_min,Minimum absolute neutrophil count during ICU stay. Primary infection fighters.,MIMIC-IV labevents (derived),Complete Blood Count - Differential,K/uL,DOUBLE PRECISION
+abs_neutrophils_max,Maximum absolute neutrophil count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,K/uL,DOUBLE PRECISION
+atyps_min,Minimum atypical lymphocyte count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,%,DOUBLE PRECISION
+atyps_max,Maximum atypical lymphocyte count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,%,DOUBLE PRECISION
+bands_min,Minimum band neutrophil count during ICU stay. Immature neutrophils.,MIMIC-IV labevents (derived),Complete Blood Count - Differential,%,DOUBLE PRECISION
+bands_max,Maximum band neutrophil count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,%,DOUBLE PRECISION
+imm_granulocytes_min,Minimum immature granulocyte count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,%,DOUBLE PRECISION
+imm_granulocytes_max,Maximum immature granulocyte count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,%,DOUBLE PRECISION
+metas_min,Minimum metamyelocyte count during ICU stay. Immature granulocytes.,MIMIC-IV labevents (derived),Complete Blood Count - Differential,%,DOUBLE PRECISION
+metas_max,Maximum metamyelocyte count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,%,DOUBLE PRECISION
+nrbc_min,Minimum nucleated red blood cell count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,/100 WBC,DOUBLE PRECISION
+nrbc_max,Maximum nucleated red blood cell count during ICU stay,MIMIC-IV labevents (derived),Complete Blood Count - Differential,/100 WBC,DOUBLE PRECISION
+d_dimer_min,Minimum D-dimer level during ICU stay. Marker of blood clot breakdown.,MIMIC-IV labevents (derived),Coagulation,ng/mL FEU,DOUBLE PRECISION
+d_dimer_max,Maximum D-dimer level during ICU stay,MIMIC-IV labevents (derived),Coagulation,ng/mL FEU,DOUBLE PRECISION
+fibrinogen_min,Minimum fibrinogen level during ICU stay. Protein essential for blood clotting.,MIMIC-IV labevents (derived),Coagulation,mg/dL,DOUBLE PRECISION
+fibrinogen_max,Maximum fibrinogen level during ICU stay,MIMIC-IV labevents (derived),Coagulation,mg/dL,DOUBLE PRECISION
+thrombin_min,Minimum thrombin time during ICU stay. Measures final stage of blood clotting.,MIMIC-IV labevents (derived),Coagulation,seconds,DOUBLE PRECISION
+thrombin_max,Maximum thrombin time during ICU stay,MIMIC-IV labevents (derived),Coagulation,seconds,DOUBLE PRECISION
+inr_min,Minimum International Normalized Ratio during ICU stay. Standardized measure of blood clotting.,MIMIC-IV labevents (derived),Coagulation,ratio,DOUBLE PRECISION
+inr_max,Maximum INR during ICU stay,MIMIC-IV labevents (derived),Coagulation,ratio,DOUBLE PRECISION
+pt_min,Minimum prothrombin time during ICU stay. Measures time for blood to clot.,MIMIC-IV labevents (derived),Coagulation,seconds,DOUBLE PRECISION
+pt_max,Maximum prothrombin time during ICU stay,MIMIC-IV labevents (derived),Coagulation,seconds,DOUBLE PRECISION
+ptt_min,Minimum partial thromboplastin time during ICU stay. Measures intrinsic clotting pathway.,MIMIC-IV labevents (derived),Coagulation,seconds,DOUBLE PRECISION
+ptt_max,Maximum partial thromboplastin time during ICU stay,MIMIC-IV labevents (derived),Coagulation,seconds,DOUBLE PRECISION
+alt_min,Minimum alanine aminotransferase during ICU stay. Liver enzyme.,MIMIC-IV labevents (derived),Liver Function,IU/L,DOUBLE PRECISION
+alt_max,Maximum ALT during ICU stay,MIMIC-IV labevents (derived),Liver Function,IU/L,DOUBLE PRECISION
+alp_min,Minimum alkaline phosphatase during ICU stay. Enzyme from liver and bone.,MIMIC-IV labevents (derived),Liver Function,IU/L,DOUBLE PRECISION
+alp_max,Maximum alkaline phosphatase during ICU stay,MIMIC-IV labevents (derived),Liver Function,IU/L,DOUBLE PRECISION
+ast_min,Minimum aspartate aminotransferase during ICU stay. Liver and muscle enzyme.,MIMIC-IV labevents (derived),Liver Function,IU/L,DOUBLE PRECISION
+ast_max,Maximum AST during ICU stay,MIMIC-IV labevents (derived),Liver Function,IU/L,DOUBLE PRECISION
+amylase_min,Minimum amylase during ICU stay. Pancreatic enzyme.,MIMIC-IV labevents (derived),Pancreatic Function,IU/L,DOUBLE PRECISION
+amylase_max,Maximum amylase during ICU stay,MIMIC-IV labevents (derived),Pancreatic Function,IU/L,DOUBLE PRECISION
+bilirubin_total_min,Minimum total bilirubin during ICU stay. Breakdown product of red blood cells.,MIMIC-IV labevents (derived),Liver Function,mg/dL,DOUBLE PRECISION
+bilirubin_total_max,Maximum total bilirubin during ICU stay,MIMIC-IV labevents (derived),Liver Function,mg/dL,DOUBLE PRECISION
+bilirubin_direct_min,Minimum direct (conjugated) bilirubin during ICU stay,MIMIC-IV labevents (derived),Liver Function,mg/dL,DOUBLE PRECISION
+bilirubin_direct_max,Maximum direct bilirubin during ICU stay,MIMIC-IV labevents (derived),Liver Function,mg/dL,DOUBLE PRECISION
+bilirubin_indirect_min,Minimum indirect (unconjugated) bilirubin during ICU stay,MIMIC-IV labevents (derived),Liver Function,mg/dL,DOUBLE PRECISION
+bilirubin_indirect_max,Maximum indirect bilirubin during ICU stay,MIMIC-IV labevents (derived),Liver Function,mg/dL,DOUBLE PRECISION
+ck_cpk_min,Minimum creatine kinase during ICU stay. Enzyme from muscle tissue.,MIMIC-IV labevents (derived),Cardiac Markers,IU/L,DOUBLE PRECISION
+ck_cpk_max,Maximum creatine kinase during ICU stay,MIMIC-IV labevents (derived),Cardiac Markers,IU/L,DOUBLE PRECISION
+ck_mb_min,Minimum CK-MB during ICU stay. Cardiac-specific creatine kinase isoenzyme.,MIMIC-IV labevents (derived),Cardiac Markers,ng/mL,DOUBLE PRECISION
+ck_mb_max,Maximum CK-MB during ICU stay,MIMIC-IV labevents (derived),Cardiac Markers,ng/mL,DOUBLE PRECISION
+ggt_min,Minimum gamma-glutamyl transferase during ICU stay. Liver enzyme.,MIMIC-IV labevents (derived),Liver Function,IU/L,DOUBLE PRECISION
+ggt_max,Maximum GGT during ICU stay,MIMIC-IV labevents (derived),Liver Function,IU/L,DOUBLE PRECISION
+ld_ldh_min,Minimum lactate dehydrogenase during ICU stay. Enzyme present in many tissues.,MIMIC-IV labevents (derived),Chemistry - Enzymes,IU/L,DOUBLE PRECISION
+ld_ldh_max,Maximum LDH during ICU stay,MIMIC-IV labevents (derived),Chemistry - Enzymes,IU/L,DOUBLE PRECISION
+heart_rate_min,Minimum heart rate during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,beats/min,DOUBLE PRECISION
+heart_rate_max,Maximum heart rate during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,beats/min,DOUBLE PRECISION
+heart_rate_mean,Mean heart rate during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,beats/min,DOUBLE PRECISION
+sbp_min,Minimum systolic blood pressure during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,mmHg,DOUBLE PRECISION
+sbp_max,Maximum systolic blood pressure during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,mmHg,DOUBLE PRECISION
+sbp_mean,Mean systolic blood pressure during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,mmHg,DOUBLE PRECISION
+dbp_min,Minimum diastolic blood pressure during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,mmHg,DOUBLE PRECISION
+dbp_max,Maximum diastolic blood pressure during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,mmHg,DOUBLE PRECISION
+dbp_mean,Mean diastolic blood pressure during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,mmHg,DOUBLE PRECISION
+mbp_min,Minimum mean arterial blood pressure during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,mmHg,DOUBLE PRECISION
+mbp_max,Maximum mean arterial blood pressure during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,mmHg,DOUBLE PRECISION
+mbp_mean,Mean of mean arterial blood pressure during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,mmHg,DOUBLE PRECISION
+resp_rate_min,Minimum respiratory rate during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,breaths/min,DOUBLE PRECISION
+resp_rate_max,Maximum respiratory rate during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,breaths/min,DOUBLE PRECISION
+resp_rate_mean,Mean respiratory rate during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,breaths/min,DOUBLE PRECISION
+temperature_min,Minimum body temperature during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,°C,DOUBLE PRECISION
+temperature_max,Maximum body temperature during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,°C,DOUBLE PRECISION
+temperature_mean,Mean body temperature during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,°C,DOUBLE PRECISION
+spo2_min,Minimum peripheral oxygen saturation during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,%,DOUBLE PRECISION
+spo2_max,Maximum peripheral oxygen saturation during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,%,DOUBLE PRECISION
+spo2_mean,Mean peripheral oxygen saturation during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,%,DOUBLE PRECISION
+glucose_min_1,Minimum glucose from vital signs charting during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,mg/dL,DOUBLE PRECISION
+glucose_max_1,Maximum glucose from vital signs charting during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,mg/dL,DOUBLE PRECISION
+glucose_mean,Mean glucose from vital signs charting during ICU stay,MIMIC-IV chartevents (derived),Vital Signs,mg/dL,DOUBLE PRECISION
+lactate_min,Minimum lactate level during ICU stay. Marker of tissue hypoxia.,MIMIC-IV labevents/blood gas (derived),Blood Gas,mmol/L,DOUBLE PRECISION
+lactate_max,Maximum lactate level during ICU stay,MIMIC-IV labevents/blood gas (derived),Blood Gas,mmol/L,DOUBLE PRECISION
+ph_min,Minimum blood pH during ICU stay. Measures acid-base status.,MIMIC-IV blood gas (derived),Blood Gas,pH units,DOUBLE PRECISION
+ph_max,Maximum blood pH during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,pH units,DOUBLE PRECISION
+so2_min,Minimum oxygen saturation from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,%,DOUBLE PRECISION
+so2_max,Maximum oxygen saturation from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,%,DOUBLE PRECISION
+po2_min,Minimum partial pressure of oxygen during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mmHg,DOUBLE PRECISION
+po2_max,Maximum partial pressure of oxygen during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mmHg,DOUBLE PRECISION
+pco2_min,Minimum partial pressure of carbon dioxide during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mmHg,DOUBLE PRECISION
+pco2_max,Maximum partial pressure of carbon dioxide during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mmHg,DOUBLE PRECISION
+aado2_min,Minimum alveolar-arterial oxygen difference during ICU stay. Measures gas exchange efficiency.,MIMIC-IV blood gas (derived),Blood Gas,mmHg,DOUBLE PRECISION
+aado2_max,Maximum A-a oxygen gradient during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mmHg,DOUBLE PRECISION
+aado2_calc_min,Minimum calculated alveolar-arterial oxygen difference,MIMIC-IV blood gas (derived/calculated),Blood Gas,mmHg,DOUBLE PRECISION
+aado2_calc_max,Maximum calculated A-a oxygen gradient,MIMIC-IV blood gas (derived/calculated),Blood Gas,mmHg,DOUBLE PRECISION
+pao2fio2ratio_min,Minimum PaO2/FiO2 ratio during ICU stay. Key measure of oxygenation used in ARDS criteria.,MIMIC-IV blood gas (derived/calculated),Blood Gas,ratio,DOUBLE PRECISION
+pao2fio2ratio_max,Maximum PaO2/FiO2 ratio during ICU stay,MIMIC-IV blood gas (derived/calculated),Blood Gas,ratio,DOUBLE PRECISION
+baseexcess_min,Minimum base excess during ICU stay. Measures metabolic component of acid-base status.,MIMIC-IV blood gas (derived),Blood Gas,mEq/L,DOUBLE PRECISION
+baseexcess_max,Maximum base excess during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mEq/L,DOUBLE PRECISION
+bicarbonate_min_1,Minimum bicarbonate from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mEq/L,DOUBLE PRECISION
+bicarbonate_max_1,Maximum bicarbonate from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mEq/L,DOUBLE PRECISION
+totalco2_min,Minimum total CO2 content during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mEq/L,DOUBLE PRECISION
+totalco2_max,Maximum total CO2 content during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mEq/L,DOUBLE PRECISION
+hematocrit_min_1,Minimum hematocrit from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,%,DOUBLE PRECISION
+hematocrit_max_1,Maximum hematocrit from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,%,DOUBLE PRECISION
+hemoglobin_min_1,Minimum hemoglobin from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,g/dL,DOUBLE PRECISION
+hemoglobin_max_1,Maximum hemoglobin from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,g/dL,DOUBLE PRECISION
+carboxyhemoglobin_min,Minimum carboxyhemoglobin during ICU stay. Measures carbon monoxide binding to hemoglobin.,MIMIC-IV blood gas (derived),Blood Gas,%,DOUBLE PRECISION
+carboxyhemoglobin_max,Maximum carboxyhemoglobin during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,%,DOUBLE PRECISION
+methemoglobin_min,Minimum methemoglobin during ICU stay. Hemoglobin with oxidized iron.,MIMIC-IV blood gas (derived),Blood Gas,%,DOUBLE PRECISION
+methemoglobin_max,Maximum methemoglobin during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,%,DOUBLE PRECISION
+temperature_min_1,Minimum temperature from blood gas analyzer during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,°C,DOUBLE PRECISION
+temperature_max_1,Maximum temperature from blood gas analyzer during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,°C,DOUBLE PRECISION
+chloride_min_1,Minimum chloride from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mEq/L,DOUBLE PRECISION
+chloride_max_1,Maximum chloride from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mEq/L,DOUBLE PRECISION
+calcium_min_1,Minimum ionized calcium from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mg/dL,DOUBLE PRECISION
+calcium_max_1,Maximum ionized calcium from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mg/dL,DOUBLE PRECISION
+glucose_min_2,Minimum glucose from blood gas analyzer during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mg/dL,DOUBLE PRECISION
+glucose_max_2,Maximum glucose from blood gas analyzer during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mg/dL,DOUBLE PRECISION
+potassium_min_1,Minimum potassium from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mEq/L,DOUBLE PRECISION
+potassium_max_1,Maximum potassium from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mEq/L,DOUBLE PRECISION
+sodium_min_1,Minimum sodium from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mEq/L,DOUBLE PRECISION
+sodium_max_1,Maximum sodium from blood gas during ICU stay,MIMIC-IV blood gas (derived),Blood Gas,mEq/L,DOUBLE PRECISION
+charttime,Time at which the observation or measurement was charted/recorded,MIMIC-IV chartevents,Timestamps,,TIMESTAMP
+specimen_id,Unique identifier for a specimen. Multiple measurements from same specimen share specimen_id.,MIMIC-IV labevents,Lab Identifier,,INTEGER
+crp,C-reactive protein level. Acute phase reactant and marker of inflammation/infection.,MIMIC-IV labevents (derived),Inflammation Markers,mg/L,DOUBLE PRECISION
+urineoutput,Total urine output during ICU stay. Key measure of kidney function and fluid balance.,MIMIC-IV outputevents (derived),Outputs,mL,DOUBLE PRECISION
+height,Patient's height,MIMIC-IV chartevents/omr (derived),Anthropometrics,cm,DOUBLE PRECISION
+weight_admit,Patient's weight at time of admission,MIMIC-IV chartevents/omr (derived),Anthropometrics,kg,DOUBLE PRECISION
+weight,Patient's weight during ICU stay,MIMIC-IV chartevents (derived),Anthropometrics,kg,DOUBLE PRECISION
+weight_min,Minimum recorded weight during ICU stay,MIMIC-IV chartevents (derived),Anthropometrics,kg,DOUBLE PRECISION
+weight_max,Maximum recorded weight during ICU stay,MIMIC-IV chartevents (derived),Anthropometrics,kg,DOUBLE PRECISION
+
