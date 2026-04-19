@@ -1,16 +1,4 @@
-"""Google Colab entrypoint for the AKI early-prediction BigQuery extraction flow.
-
-Usage in Colab:
-1. Upload or clone this repo into the notebook runtime.
-2. Edit `PROJECT_ID` and `DATASET_ID` below.
-3. Optionally set `RUN_ONLY` to rerun a subset of stages.
-4. Run this file to materialize the AKI tables and export the final CSV.
-"""
-
-from __future__ import annotations
-
 from pathlib import Path
-from typing import Iterable
 
 import pandas as pd
 from google.cloud import bigquery
@@ -28,7 +16,7 @@ PREVIEW_ROWS = 5
 
 # Leave as None to run the full pipeline.
 # Example: RUN_ONLY = ["01_base_cohort.sql", "02_kdigo_labels.sql"]
-RUN_ONLY: list[str] | None = None
+RUN_ONLY = None
 
 # Optional debug behavior.
 RUN_SANITY_CHECKS_AFTER_MAIN = True
@@ -74,18 +62,18 @@ STAGE_TO_TABLE_KEY = {
 }
 
 
-def read_sql_file(sql_dir: Path, file_name: str) -> str:
+def read_sql_file(sql_dir, file_name):
     """Load a SQL file from disk."""
     sql_path = sql_dir / file_name
     return sql_path.read_text(encoding="utf-8")
 
 
-def render_stage_sql(raw_sql: str, replacements: dict[str, str]) -> str:
+def render_stage_sql(raw_sql, replacements):
     """Fill SQL placeholders such as project, dataset, and output table names."""
     return raw_sql.format(**replacements)
 
 
-def iter_stage_sql(stage_names: list[str]) -> Iterable[tuple[str, str]]:
+def iter_stage_sql(stage_names):
     """Yield `(file_name, rendered_sql)` in stage order."""
     replacements = {
         "project_id": PROJECT_ID,
@@ -97,21 +85,21 @@ def iter_stage_sql(stage_names: list[str]) -> Iterable[tuple[str, str]]:
         yield file_name, render_stage_sql(raw_sql, replacements)
 
 
-def stage_selected(file_name: str) -> bool:
+def stage_selected(file_name):
     """Return True when a stage should run under the current filter."""
     if not RUN_ONLY:
         return True
     return file_name in RUN_ONLY or file_name.replace(".sql", "") in RUN_ONLY
 
 
-def run_query(client: bigquery.Client, sql_query: str) -> bigquery.table.RowIterator:
+def run_query(client, sql_query):
     """Execute SQL and wait for completion."""
     query_job = client.query(sql_query)
     result = query_job.result()
     return result
 
 
-def fetch_row_count(client: bigquery.Client, table_key: str) -> int:
+def fetch_row_count(client, table_key):
     """Return the row count for a materialized output table."""
     table_name = OUTPUT_DATASET_TABLES[table_key]
     count_sql = f"""
@@ -122,7 +110,7 @@ def fetch_row_count(client: bigquery.Client, table_key: str) -> int:
     return int(row["row_count"])
 
 
-def table_exists(client: bigquery.Client, table_key: str) -> bool:
+def table_exists(client, table_key):
     """Return True when the configured table is available in BigQuery."""
     table_name = OUTPUT_DATASET_TABLES[table_key]
     try:
@@ -132,7 +120,7 @@ def table_exists(client: bigquery.Client, table_key: str) -> bool:
         return False
 
 
-def log_stage_row_count(client: bigquery.Client, file_name: str) -> None:
+def log_stage_row_count(client, file_name):
     """Print a simple row-count audit after a materialization stage finishes."""
     table_key = STAGE_TO_TABLE_KEY.get(file_name)
     if table_key is None:
@@ -142,7 +130,7 @@ def log_stage_row_count(client: bigquery.Client, file_name: str) -> None:
     print(f"[done] {file_name} -> {table_name} ({row_count:,} rows)")
 
 
-def split_sql_blocks(sql_text: str) -> list[str]:
+def split_sql_blocks(sql_text):
     """Split a multi-query SQL file into standalone executable blocks.
 
     This intentionally ignores comment-only lines before splitting so semicolons
@@ -163,7 +151,7 @@ def split_sql_blocks(sql_text: str) -> list[str]:
     return blocks
 
 
-def run_sanity_checks(client: bigquery.Client) -> None:
+def run_sanity_checks(client):
     """Run sanity-check query blocks and print small previews."""
     raw_sql = read_sql_file(SQL_DIR, SANITY_CHECKS_SQL)
     rendered_sql = render_stage_sql(
@@ -176,7 +164,7 @@ def run_sanity_checks(client: bigquery.Client) -> None:
         print(preview_df.head(PREVIEW_ROWS))
 
 
-def export_final_table(client: bigquery.Client) -> pd.DataFrame:
+def export_final_table(client):
     """Download the final modeled table and save it as CSV inside the Colab runtime."""
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     final_table_name = OUTPUT_DATASET_TABLES["final_dataset_table"]
@@ -191,7 +179,7 @@ def export_final_table(client: bigquery.Client) -> pd.DataFrame:
     return final_df
 
 
-def main() -> None:
+def main():
     """Run the AKI extraction stages in order."""
     auth.authenticate_user()
     client = bigquery.Client(project=PROJECT_ID)
