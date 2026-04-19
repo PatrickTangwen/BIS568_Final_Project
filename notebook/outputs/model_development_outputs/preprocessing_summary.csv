@@ -1,0 +1,6 @@
+step,count
+engineered_features_added,5
+high_missing_columns_removed,0
+constant_columns_removed,0
+explicit_leakage_columns_removed,0
+final_feature_count,151

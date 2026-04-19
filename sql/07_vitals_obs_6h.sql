@@ -2,11 +2,12 @@
 -- Intended output table: `{project_id}.{dataset_id}.{vitals_features_table}`
 -- Intended inputs:
 --   - `{project_id}.{dataset_id}.{prediction_anchors_table}`
---   - `physionet-data.mimiciv_2_2_derived.vitalsign`
+--   - `physionet-data.mimiciv_2_2_icu.chartevents`
 --
--- We use the official `vitalsign` derived concept because it already maps the
--- raw chart events into named physiologic variables while preserving charttime.
--- All downstream joins still enforce the AKI observation-window boundary.
+-- `mimiciv_2_2_derived.vitalsign` is not available in this environment, so we
+-- inline the official MIMIC vital-sign pivot logic directly from `chartevents`.
+-- The item IDs and range filters follow the official `mimic-code` vital sign
+-- concept structure, then we apply the AKI observation-window boundary.
 
 CREATE OR REPLACE TABLE `{project_id}.{dataset_id}.{vitals_features_table}` AS
 WITH eligible_anchors AS (
@@ -16,6 +17,69 @@ WITH eligible_anchors AS (
         anchor_time
     FROM `{project_id}.{dataset_id}.{prediction_anchors_table}`
     WHERE eligible_for_prediction = 1
+),
+vitalsign_pivot AS (
+    SELECT
+        ce.stay_id,
+        ce.charttime,
+        AVG(CASE
+            WHEN ce.itemid = 220045
+             AND ce.valuenum > 0
+             AND ce.valuenum < 300
+            THEN ce.valuenum
+        END) AS heart_rate,
+        AVG(CASE
+            WHEN ce.itemid IN (220179, 220050, 225309)
+             AND ce.valuenum > 0
+             AND ce.valuenum < 400
+            THEN ce.valuenum
+        END) AS sbp,
+        AVG(CASE
+            WHEN ce.itemid IN (220180, 220051, 225310)
+             AND ce.valuenum > 0
+             AND ce.valuenum < 300
+            THEN ce.valuenum
+        END) AS dbp,
+        AVG(CASE
+            WHEN ce.itemid IN (220052, 220181, 225312)
+             AND ce.valuenum > 0
+             AND ce.valuenum < 300
+            THEN ce.valuenum
+        END) AS mbp,
+        AVG(CASE
+            WHEN ce.itemid IN (220210, 224690)
+             AND ce.valuenum > 0
+             AND ce.valuenum < 70
+            THEN ce.valuenum
+        END) AS resp_rate,
+        ROUND(CAST(AVG(CASE
+            WHEN ce.itemid = 223761
+             AND ce.valuenum > 70
+             AND ce.valuenum < 120
+            THEN (ce.valuenum - 32) / 1.8
+            WHEN ce.itemid = 223762
+             AND ce.valuenum > 10
+             AND ce.valuenum < 50
+            THEN ce.valuenum
+        END) AS NUMERIC), 2) AS temperature,
+        AVG(CASE
+            WHEN ce.itemid = 220277
+             AND ce.valuenum > 0
+             AND ce.valuenum <= 100
+            THEN ce.valuenum
+        END) AS spo2
+    FROM `physionet-data.mimiciv_2_2_icu.chartevents` AS ce
+    WHERE ce.stay_id IS NOT NULL
+      AND ce.itemid IN (
+          220045,
+          225309, 225310, 225312,
+          220050, 220051, 220052,
+          220179, 220180, 220181,
+          220210, 224690,
+          220277,
+          223761, 223762
+      )
+    GROUP BY ce.stay_id, ce.charttime
 ),
 filtered_vitals AS (
     SELECT
@@ -29,7 +93,7 @@ filtered_vitals AS (
         CAST(vitals.temperature AS FLOAT64) AS temperature,
         CAST(vitals.spo2 AS FLOAT64) AS spo2
     FROM eligible_anchors AS anchors
-    INNER JOIN `physionet-data.mimiciv_2_2_derived.vitalsign` AS vitals
+    INNER JOIN vitalsign_pivot AS vitals
         ON anchors.stay_id = vitals.stay_id
     WHERE vitals.charttime >= anchors.icu_intime
       AND vitals.charttime <= anchors.anchor_time

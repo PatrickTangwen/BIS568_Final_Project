@@ -12,38 +12,42 @@
 CREATE OR REPLACE TABLE `{project_id}.{dataset_id}.{base_cohort_table}` AS
 WITH cohort_candidates AS (
     SELECT
-        icu.subject_id,
-        icu.hadm_id,
-        icu.stay_id,
-        icu.icu_intime,
-        icu.icu_outtime,
-        icu.admittime,
-        icu.dischtime,
-        icu.admission_age,
-        icu.gender,
-        icu.race,
-        icu.admission_type,
-        icu.admission_location,
-        icu.insurance,
-        icu.language,
-        icu.marital_status,
-        icu.hospital_expire_flag,
-        icu.los_icu,
-        icu.los_hospital,
-        icu.first_icu_stay,
-        icu.first_hosp_stay,
+        detail.subject_id,
+        detail.hadm_id,
+        detail.stay_id,
+        detail.icu_intime,
+        detail.icu_outtime,
+        adm.admittime,
+        adm.dischtime,
+        detail.admission_age,
+        pat.gender,
+        adm.race,
+        adm.admission_type,
+        adm.admission_location,
+        adm.insurance,
+        adm.language,
+        adm.marital_status,
+        adm.hospital_expire_flag,
+        detail.los_icu,
+        ROUND(CAST(DATETIME_DIFF(adm.dischtime, adm.admittime, HOUR) / 24.0 AS NUMERIC), 2) AS los_hospital,
+        detail.first_icu_stay,
+        detail.first_hosp_stay,
         ROW_NUMBER() OVER (
-            PARTITION BY icu.subject_id
-            ORDER BY icu.icu_intime, icu.stay_id
+            PARTITION BY detail.subject_id
+            ORDER BY detail.icu_intime, detail.stay_id
         ) AS patient_icu_stay_seq,
-        DATETIME_DIFF(icu.icu_outtime, icu.icu_intime, HOUR) AS icu_los_hours
-    FROM `physionet-data.mimiciv_2_2_derived.icustay_detail` AS icu
-    WHERE icu.icu_intime IS NOT NULL
-      AND icu.icu_outtime IS NOT NULL
-      AND icu.admittime IS NOT NULL
-      AND icu.dischtime IS NOT NULL
+        DATETIME_DIFF(detail.icu_outtime, detail.icu_intime, HOUR) AS icu_los_hours
+    FROM `physionet-data.mimiciv_2_2_derived.icustay_detail` AS detail
+    INNER JOIN `physionet-data.mimiciv_2_2_hosp.admissions` AS adm
+        ON detail.hadm_id = adm.hadm_id
+    INNER JOIN `physionet-data.mimiciv_2_2_hosp.patients` AS pat
+        ON detail.subject_id = pat.subject_id
+    WHERE detail.icu_intime IS NOT NULL
+      AND detail.icu_outtime IS NOT NULL
+      AND adm.admittime IS NOT NULL
+      AND adm.dischtime IS NOT NULL
       -- Adult patients only.
-      AND icu.admission_age >= 18
+      AND detail.admission_age >= 18
 ),
 eligible_stays AS (
     SELECT

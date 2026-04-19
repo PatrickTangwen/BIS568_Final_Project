@@ -1,0 +1,17 @@
+,,0,1
+admission_age,median,63.0,69.0
+admission_age,mean,61.48,67.22
+creatinine_last_6h,median,0.8,0.9
+creatinine_last_6h,mean,1.05,1.29
+bun_last_6h,median,16.0,19.0
+bun_last_6h,mean,21.23,24.69
+urine_total_6h,median,575.0,370.0
+urine_total_6h,mean,716.83,494.7
+heart_rate_mean_6h,median,82.75,82.86
+heart_rate_mean_6h,mean,85.19,85.27
+mbp_mean_6h,median,80.86,78.57
+mbp_mean_6h,mean,82.1,80.02
+bun_creatinine_ratio_last_6h,median,18.46,19.23
+bun_creatinine_ratio_last_6h,mean,20.67,21.06
+shock_index_last_6h,median,0.7,0.71
+shock_index_last_6h,mean,0.73,0.74

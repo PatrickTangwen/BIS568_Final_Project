@@ -16,11 +16,11 @@ import pandas as pd
 from google.cloud import bigquery
 from google.colab import auth
 from google.api_core.exceptions import NotFound
-
+from google.colab import userdata
 
 # Config block: edit these names in Colab before running.
-PROJECT_ID = "your-gcp-project"
-DATASET_ID = "your_bigquery_dataset"
+PROJECT_ID = userdata.get('project_id')
+DATASET_ID = 'BIS_638_Final_Project'
 SQL_DIR = Path("sql")
 OUTPUT_DIR = Path("outputs")
 FINAL_EXPORT_CSV = OUTPUT_DIR / "mimic_aki_cohort_raw.csv"
@@ -143,9 +143,20 @@ def log_stage_row_count(client: bigquery.Client, file_name: str) -> None:
 
 
 def split_sql_blocks(sql_text: str) -> list[str]:
-    """Split a multi-query SQL file into standalone blocks."""
+    """Split a multi-query SQL file into standalone executable blocks.
+
+    This intentionally ignores comment-only lines before splitting so semicolons
+    inside comments do not create empty/invalid query fragments.
+    """
+    executable_lines = []
+    for line in sql_text.splitlines():
+        if line.strip().startswith("--"):
+            continue
+        executable_lines.append(line)
+
+    cleaned_sql = "\n".join(executable_lines)
     blocks = []
-    for block in sql_text.split(";"):
+    for block in cleaned_sql.split(";"):
         cleaned = block.strip()
         if cleaned:
             blocks.append(cleaned)
