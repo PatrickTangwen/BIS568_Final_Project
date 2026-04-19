@@ -1,5 +1,4 @@
 from pathlib import Path
-
 import pandas as pd
 from google.cloud import bigquery
 from google.colab import auth
