@@ -14,11 +14,7 @@ OUTPUT_DIR = Path("outputs")
 FINAL_EXPORT_CSV = OUTPUT_DIR / "mimic_aki_cohort_raw.csv"
 PREVIEW_ROWS = 5
 
-# Leave as None to run the full pipeline.
-# Example: RUN_ONLY = ["01_base_cohort.sql", "02_kdigo_labels.sql"]
 RUN_ONLY = None
-
-# Optional debug behavior.
 RUN_SANITY_CHECKS_AFTER_MAIN = True
 PREVIEW_FINAL_TABLE = True
 
@@ -132,7 +128,6 @@ def log_stage_row_count(client, file_name):
 
 def split_sql_blocks(sql_text):
     """Split a multi-query SQL file into standalone executable blocks.
-
     This intentionally ignores comment-only lines before splitting so semicolons
     inside comments do not create empty/invalid query fragments.
     """

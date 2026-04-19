@@ -30,7 +30,7 @@ The MVP task definition is:
 ### Notebooks
 
 - [notebook/aki_data_cleaning.ipynb](/Users/tangwenhua/Desktop/BIS568_Final_Project/notebook/aki_data_cleaning.ipynb): Loads the raw AKI cohort CSV, reviews missingness and leakage-sensitive columns, and exports a cleaned dataset.
-- [notebook/aki_models.ipynb](/Users/tangwenhua/Desktop/BIS568_Final_Project/notebook/aki_models.ipynb): Loads the cleaned dataset, performs a subject-level split by `subject_id`, and trains baseline models.
+- [notebook/aki_model_dev.ipynb](/Users/tangwenhua/Desktop/BIS568_Final_Project/notebook/aki_model_dev.ipynb): Loads the cleaned dataset, performs a subject-level split by `subject_id`, and trains baseline models.
 
 ### Outputs
 

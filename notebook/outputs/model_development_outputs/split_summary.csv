@@ -1,4 +1,0 @@
-split,rows,unique_subjects,positive_rate_pct
-train,17564,17564,58.41
-validation,5855,5855,58.7
-test,5855,5855,58.45
