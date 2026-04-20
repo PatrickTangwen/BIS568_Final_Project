@@ -1,8 +1,6 @@
 # Context for `mimic_aki_cohort_cleaned.csv`
 
-This markdown is a quick context file for another LLM that needs to do model development with:
-
-- `/Users/tangwenhua/Desktop/BIS568_Final_Project/notebook/outputs/mimic_aki_cohort_cleaned.csv`
+This markdown is a quick context file for model development
 
 ## Dataset summary
 
@@ -152,7 +150,7 @@ Columns that were removed earlier include explicit leakage-style columns such as
 - `has_aki_anytime`
 - `eligible_for_prediction`
 
-So another LLM should **not assume** those columns still exist in the cleaned CSV.
+Do **not assume** those columns still exist in the cleaned CSV.
 
 ## Missingness snapshot
 
@@ -224,4 +222,4 @@ If the goal is a BIS568-style model development section, the writeup can be orga
 ## Important caution
 
 This project is an **AKI early prediction** task, not a general outcome prediction task.
-Another LLM should not redefine the target and should not bring back post-anchor or full-stay leakage features.
+Please do not redefine the target and should not bring back post-anchor or full-stay leakage features.
