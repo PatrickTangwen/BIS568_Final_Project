@@ -171,9 +171,7 @@ Top missing columns in the current cleaned file:
 
 Additional calcium summaries and some sodium summaries also have substantial missingness.
 
-## Modeling guidance for another LLM
-
-If another LLM is asked to build models from this file, it should follow these rules:
+## Modeling guidance
 
 1. Use `future_aki_24h` as the target.
 2. Do **not** use `subject_id`, `hadm_id`, or `stay_id` as predictors.
