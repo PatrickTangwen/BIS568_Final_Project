@@ -1,0 +1,72 @@
+{
+  "config": {
+    "target": "future_aki_24h",
+    "train_rows": 20491,
+    "validation_rows": 2928,
+    "test_rows": 5855,
+    "missing_indicator_threshold": 0.05,
+    "split_strategy": "subject_level_group_shuffle_split",
+    "logreg_penalty": "l2",
+    "logreg_solver": "liblinear",
+    "logreg_C": 1.0,
+    "rf_n_estimators": 200,
+    "rf_min_samples_leaf": 5,
+    "rf_random_state": 42
+  },
+  "metrics": [
+    {
+      "model_name": "LogReg",
+      "dataset": "Validation",
+      "auroc": 0.731,
+      "pr_auc": 0.7937,
+      "brier": 0.2047
+    },
+    {
+      "model_name": "LogReg",
+      "dataset": "Test",
+      "auroc": 0.7333,
+      "pr_auc": 0.7945,
+      "brier": 0.2039
+    },
+    {
+      "model_name": "RF",
+      "dataset": "Validation",
+      "auroc": 0.7194,
+      "pr_auc": 0.7836,
+      "brier": 0.2088
+    },
+    {
+      "model_name": "RF",
+      "dataset": "Test",
+      "auroc": 0.7291,
+      "pr_auc": 0.7976,
+      "brier": 0.2056
+    }
+  ],
+  "performance_comparison": [
+    {
+      "model_name": "LogReg",
+      "auroc_test": 0.7333,
+      "auroc_validation": 0.731,
+      "brier_test": 0.2039,
+      "brier_validation": 0.2047,
+      "pr_auc_test": 0.7945,
+      "pr_auc_validation": 0.7937,
+      "auroc_gap_test_minus_val": 0.0023,
+      "pr_auc_gap_test_minus_val": 0.0008,
+      "brier_gap_test_minus_val": -0.0008
+    },
+    {
+      "model_name": "RF",
+      "auroc_test": 0.7291,
+      "auroc_validation": 0.7194,
+      "brier_test": 0.2056,
+      "brier_validation": 0.2088,
+      "pr_auc_test": 0.7976,
+      "pr_auc_validation": 0.7836,
+      "auroc_gap_test_minus_val": 0.0097,
+      "pr_auc_gap_test_minus_val": 0.014,
+      "brier_gap_test_minus_val": -0.0032
+    }
+  ]
+}
