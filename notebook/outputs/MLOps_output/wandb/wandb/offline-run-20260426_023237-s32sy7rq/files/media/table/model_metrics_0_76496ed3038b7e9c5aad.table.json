@@ -1,0 +1,1 @@
+{"columns": ["model_name", "dataset", "auroc", "pr_auc", "brier"], "data": [["LogReg", "Validation", 0.731, 0.7937, 0.2047], ["LogReg", "Test", 0.7333, 0.7945, 0.2039], ["RF", "Validation", 0.7194, 0.7836, 0.2088], ["RF", "Test", 0.7291, 0.7976, 0.2056]]}
